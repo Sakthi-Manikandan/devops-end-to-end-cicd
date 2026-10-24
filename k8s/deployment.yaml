@@ -1,4 +1,3 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,12 +14,27 @@ spec:
       labels:
         app: devops-api
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+
       containers:
         - name: devops-api
           image: ghcr.io/sakthi-manikandan/devops-end-to-end-cicd:v1.0.0
+
           ports:
             - name: http
               containerPort: 8000
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+
           readinessProbe:
             httpGet:
               path: /health
