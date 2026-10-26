@@ -1,15 +1,22 @@
 
 name: Python CI Pipeline
 
-# on:
-#   push:
-#     branches:
-#       - main
-#     tags:
-#       - 'v*'
-#   pull_request:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "app/**"
+      - "tests/**"
+      - "Dockerfile"
+      - "requirements.txt"
+      - ".github/workflows/ci.yml"
+      
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
       
 permissions:
   contents: read
