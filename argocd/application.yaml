@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: devops-api
+  namespace: argocd
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Sakthi-Manikandan/devops-end-to-end-cicd.git
+    targetRevision: main
+    path: helm/devops-api
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: devops-api
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
