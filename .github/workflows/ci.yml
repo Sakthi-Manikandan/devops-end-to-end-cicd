@@ -1,25 +1,24 @@
-
 name: Python CI Pipeline
 
 on:
   push:
     branches:
       - main
+    tags:
+      - "v*"
     paths:
       - "app/**"
       - "tests/**"
       - "Dockerfile"
       - "requirements.txt"
       - ".github/workflows/ci.yml"
-      
-    tags:
-      - 'v*'
+
   pull_request:
     branches:
       - main
-      
+
 permissions:
-  contents: read
+  contents: write
   packages: write
 
 jobs:
@@ -44,9 +43,8 @@ jobs:
       - name: Run automated tests
         run: python -m pytest -v
 
-
   docker-build:
-    name: Build and Scan Docker Image
+    name: Build, Scan and Publish Docker Image
     runs-on: ubuntu-latest
     needs: test
 
@@ -70,7 +68,7 @@ jobs:
         with:
           image-ref: devops-end-to-end-cicd:latest
           format: table
-          exit-code: '1'
+          exit-code: "1"
           ignore-unfixed: true
           vuln-type: os,library
           severity: HIGH,CRITICAL
@@ -101,3 +99,23 @@ jobs:
           IMAGE_NAME=$(echo "$IMAGE_NAME" | tr '[:upper:]' '[:lower:]')
           docker tag devops-end-to-end-cicd:latest "$IMAGE_NAME:$IMAGE_TAG"
           docker push "$IMAGE_NAME:$IMAGE_TAG"
+
+      - name: Update Helm image tag
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          sed -i -E "s|^  tag:.*|  tag: \"$IMAGE_TAG\"|" helm/devops-api/values.yaml
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add helm/devops-api/values.yaml
+
+          if git diff --cached --quiet; then
+            echo "Helm image tag is already up to date."
+          else
+            git commit -m "chore: update Helm image tag to $IMAGE_TAG"
+            git push
+          fi
+          
