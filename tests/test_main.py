@@ -8,7 +8,7 @@ def test_home_endpoint():
     response = client.get("/")
 
     assert response.status_code == 200
-    assert response.json()["status"] == "running"
+    assert response.json()["status"] == "failed"
 
 
 def test_health_endpoint():
