@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/sakthi-manikandan/devops-end-to-end-cicd
-  tag: "d0ba9d22f269a32725b795948d3555a928ddfedc"
+  tag: "f30719dadb2a9bdc3534b3f2097236f626c2c34d"
 
 resources:
   requests:
