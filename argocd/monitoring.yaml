@@ -15,18 +15,12 @@ spec:
     helm:
       releaseName: monitoring
       values: |
-        crds:
-          enabled: true
-          
         grafana:
           enabled: true
 
-          # Disable the init container that fails to change
-          # ownership of the persistent volume.
           initChownData:
             enabled: false
 
-          # Run Grafana with its expected user and group.
           podSecurityContext:
             runAsUser: 472
             runAsGroup: 472
@@ -107,3 +101,4 @@ spec:
 
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
