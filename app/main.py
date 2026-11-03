@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI(
     title="DevOps CI/CD Demo API",
@@ -20,3 +21,7 @@ def health_check():
     return {
         "status": "healthy",
     }
+
+
+# Enable Prometheus application metrics
+Instrumentator().instrument(app).expose(app)
