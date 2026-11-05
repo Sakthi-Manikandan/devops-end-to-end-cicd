@@ -14,3 +14,10 @@ resources:
 
 ingress:
   host: api.devops.local
+
+serviceMonitor:
+  enabled: true
+  releaseLabel: monitoring
+  port: http
+  path: /metrics
+  interval: 30s
