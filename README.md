@@ -8,7 +8,8 @@ The project uses a Python FastAPI application and a locally hosted Kubernetes cl
 
 ![End-to-End DevOps Project Architecture](docs/images/project-architecture.png)
 
-### Architecture Diagram
+<details>
+<summary>View Mermaid diagram source</summary>
 
 ```mermaid
 flowchart TD
@@ -29,6 +30,8 @@ flowchart TD
     N --> O["Prometheus"]
     O --> P["Grafana dashboard and alerting"]
 ```
+
+</details>
 
 ## Technology Stack
 
@@ -71,7 +74,7 @@ The workflow performs the following steps:
 6. Publishes the Docker image to GitHub Container Registry.
 7. Updates the Helm values file with the newly generated image SHA.
 
-The Trivy security gate is configured to fail the workflow when unfixed HIGH or CRITICAL vulnerabilities are not the only findings.
+**Trivy security gate:** The scan is configured to fail the workflow when HIGH or CRITICAL vulnerabilities with available fixes are detected. Unfixed vulnerabilities are ignored by the configured scan.
 
 ### 3. Docker and Container Registry
 
