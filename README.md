@@ -12,6 +12,11 @@ The application is deployed to a local Kubernetes cluster running on Minikube.
 
 ## Architecture
 
+![End-to-End DevOps Project Architecture](docs/images/project-architecture.png)
+
+<details>
+<summary>View Mermaid diagram source</summary>
+
 ```mermaid
 flowchart TD
     A[Developer pushes code to GitHub] --> B[GitHub Actions CI/CD]
@@ -20,17 +25,12 @@ flowchart TD
     D --> E[Scan image with Trivy]
     E --> F[Push image to GHCR]
     F --> G[Update Helm values with image SHA]
-    G --> H[Git repository: Helm chart]
-    H --> I[Argo CD detects Git change]
-    I --> J[Sync Helm chart to Minikube]
-    J --> K[Kubernetes Deployment]
-    K --> L[FastAPI application]
-
-    L --> M[Health endpoint /health]
-    L --> N[Prometheus metrics /metrics]
-    N --> O[Prometheus]
-    O --> P[Grafana dashboard and alerting]
-```
+    G --> H[Argo CD detects Git change]
+    H --> I[Sync Helm chart to Minikube]
+    I --> J[Kubernetes Deployment]
+    J --> K[FastAPI application]
+    K --> L[Prometheus]
+    L --> M[Grafana dashboard and alerting]
 
 ## Technology Stack
 
