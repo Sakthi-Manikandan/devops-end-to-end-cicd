@@ -193,6 +193,6 @@ It demonstrates end-to-end DevOps workflows in a local environment and does not 
 
 ## Author
 
-**Sakthi Manikandan**
+**Sakthi Manikandan A**
 
 GitHub: [Sakthi-Manikandan](https://github.com/Sakthi-Manikandan)
