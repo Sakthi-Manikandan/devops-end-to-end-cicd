@@ -266,8 +266,6 @@ The project demonstrates practical DevOps concepts and is not presented as a pro
 
 ## Author
 
-**Sakthi Manikandan**
+**Sakthi Manikandan A**
 
 GitHub: [Sakthi-Manikandan](https://github.com/Sakthi-Manikandan)
-
-Project Repository: [devops-end-to-end-cicd](https://github.com/Sakthi-Manikandan/devops-end-to-end-cicd)
